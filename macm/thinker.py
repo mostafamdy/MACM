@@ -18,7 +18,7 @@ def Analysis_conditions(question):
     messages.append(message)
     # answer = generate_from_GPT(messages, max_tokens = 256, model="gpt-4-1106-preview", temperature=0.7, n=1)[0]["message"]["content"]
     answer = generate_from_thinker(messages, 
-                                   max_tokens = 256, 
+                                   max_tokens = 512, 
                                    model="gpt-4-1106-preview", 
                                    temperature=0.7,
                                    n=1)
@@ -53,7 +53,7 @@ def Fix_conditions(question,Initial_conditions):
     messages.append(message)
     # answer = generate_from_GPT(messages, max_tokens = 256, model="gpt-4-1106-preview", temperature=0.7, n=1)[0]["message"]["content"]
     fixed_condition = generate_from_thinker(messages, 
-                                   max_tokens = 256, 
+                                   max_tokens = 512, 
                                    model="gpt-4-1106-preview", 
                                    temperature=0.7, 
                                    n=1)
@@ -83,7 +83,7 @@ def Think_thoughts(conditions,objectives):
     messages.append(message)
     # new_condition = generate_from_GPT(messages, max_tokens = 128, model="gpt-4-1106-preview", temperature=0.7, n=1)[0]["message"]["content"]
     new_condition = generate_from_thinker(messages, 
-                                          max_tokens = 128, 
+                                          max_tokens = 512, 
                                           model="gpt-4-1106-preview", 
                                           temperature=0.7, 
                                           n=1)
@@ -116,7 +116,7 @@ def Think_Steps(condition_from_thinker,objective_from_thinker):
     messages.append(message)
     # steps = generate_from_GPT(messages, max_tokens = 256, model="gpt-4-1106-preview", temperature=0.7, n=1)[0]["message"]["content"]
     steps = generate_from_thinker(messages, 
-                                  max_tokens = 256, 
+                                  max_tokens = 512, 
                                   model="gpt-4-1106-preview", 
                                   temperature=0.7, 
                                   n=1)

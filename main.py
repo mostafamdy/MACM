@@ -73,14 +73,18 @@ def main(question, times, n, min_voters, max_voters):
         while tie or voter_count < min_voters:
             voter_count += 1
             print(f"\n# {voter_count} Thinker is analyzing the question...")
+            print(f"Question:\n {question}")
             conditions,objectives = Analysis_conditions(question)
             Initial_condition_numbers = len(conditions) # This line will be used for the $while$ mode
+            print(f"conditions:\n {conditions}")
+            print(f"objectives:\n {objectives}")
             
             # Think thoughts
             # while len(conditions) - Initial_condition_numbers <= times: 
             for time in range(times): # Try to reduce the LLM queries.
                 print(f"\n# {voter_count} Thinker is thinking new thoughts...")
                 unchecked_conditions = Think_thoughts(conditions,objectives)
+                print(f"unchecked_conditions:\n {unchecked_conditions}")
                 checked_conditions = []
                 for unchecked_condition in unchecked_conditions:
                     print(f"\n# {voter_count} Judge is checking conditions...")
@@ -91,15 +95,17 @@ def main(question, times, n, min_voters, max_voters):
                             unchecked_condition = unchecked_condition.split("Reason:")[0]
                         checked_conditions.append(unchecked_condition)
                 conditions = conditions + checked_conditions
+                print(f"conditions:\n {conditions}")
                 if_got_answer = check_if_got_answer(conditions,objectives,1)
                 if if_got_answer:
                     break
             print(f"\n# {voter_count} thinker is thinking steps...")
             steps = Think_Steps(conditions,objectives)
+            print(f"steps:\n {steps}")
             
             print(f"\n# {voter_count} Executor is trying to calculate the answer...")
             final_answer = Execute_steps(conditions,objectives,steps)
-            
+            print(f"final_answer:\n {final_answer}")
             # Achieve one potiential answer
             Answer = re.search(r'\\boxed\{(.*)(?=\})', final_answer)  
             if Answer:
@@ -119,6 +125,7 @@ def main(question, times, n, min_voters, max_voters):
                     break
         most_possible_answer, count = counter.most_common(1)[0]
         print(f"\nThe final answer is {most_possible_answer}")
+        
         return most_possible_answer
     except Exception as e:
         print(f"Error processing file: {e}")

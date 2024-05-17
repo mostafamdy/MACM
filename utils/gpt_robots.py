@@ -30,7 +30,7 @@ def set_model(model,tok):
 # )
 torch.backends.cuda.enable_mem_efficient_sdp(False)
 def generate_from_thinker(prompts, max_tokens, model="gpt-4-1106-preview", temperature=0.7, n=1):
-    print(_model)
+    # print(_model)
     instructions = """You are a thinker. I need you to help me think about some problems.
         You need to provide me the answer based on the format of the example."""
     message=instructions

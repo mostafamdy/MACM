@@ -7,7 +7,7 @@ from collections import Counter
 from macm.executor import Execute_steps
 from macm.judge import Judge_statement, Judge_answer, Judge_condition
 from macm.thinker import Analysis_conditions, Think_thoughts, Think_Steps
-
+from utils.gpt_robots import set_model
 def check_condition(question,condition, n):
     """
     Use several Judges to check the statement
@@ -56,7 +56,7 @@ def check_if_got_answer(conditions,statement,n):
             return False
     return True    
 
-def main(question, times, n, min_voters, max_voters):
+def main(question, times, n, min_voters, max_voters,model,tokenizer):
     """
     Input question and get the final answer from muti-Agent got
     Input:
@@ -64,6 +64,7 @@ def main(question, times, n, min_voters, max_voters):
     Output:
     final answer (Str)
     """
+    set_model(model,tokenizer)
     possible_answers = []
     try:
         voter_count = 0

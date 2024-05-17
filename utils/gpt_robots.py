@@ -5,22 +5,22 @@ import os
 import gc
 import torch
 from transformers import BitsAndBytesConfig, AutoModelForCausalLM, GemmaTokenizer
-
+from main import _model,tokenizer
 # torch.backends.cuda.enable_mem_efficient_sdp(False)
 
-tokenizer = GemmaTokenizer.from_pretrained("/kaggle/input/codegemma/transformers/7b-it/1")
+# tokenizer = GemmaTokenizer.from_pretrained("/kaggle/input/codegemma/transformers/7b-it/1")
 
-_model = AutoModelForCausalLM.from_pretrained(
-    "/kaggle/input/codegemma/transformers/7b-it/1",
-    device_map="auto",
-    torch_dtype="auto",
-    quantization_config=BitsAndBytesConfig(
-        load_in_4bit=True,  # Loading weights in 4-bit format
-        bnb_4bit_quant_type="nf4",  # Using non-linear quantization with 4 bits
-        bnb_4bit_compute_dtype=torch.bfloat16,  # Using bfloat16 for computation
-        bnb_4bit_use_double_quant=True  # Using double quantization
-    )
-)
+# _model = AutoModelForCausalLM.from_pretrained(
+#     "/kaggle/input/codegemma/transformers/7b-it/1",
+#     device_map="auto",
+#     torch_dtype="auto",
+#     quantization_config=BitsAndBytesConfig(
+#         load_in_4bit=True,  # Loading weights in 4-bit format
+#         bnb_4bit_quant_type="nf4",  # Using non-linear quantization with 4 bits
+#         bnb_4bit_compute_dtype=torch.bfloat16,  # Using bfloat16 for computation
+#         bnb_4bit_use_double_quant=True  # Using double quantization
+#     )
+# )
 torch.backends.cuda.enable_mem_efficient_sdp(False)
 def generate_from_thinker(prompts, max_tokens, model="gpt-4-1106-preview", temperature=0.7, n=1):
     instructions = """You are a thinker. I need you to help me think about some problems.

@@ -5,7 +5,14 @@ import os
 import gc
 import torch
 from transformers import BitsAndBytesConfig, AutoModelForCausalLM, GemmaTokenizer
-from main import _model,tokenizer
+# from main import _model,tokenizer
+_model=None
+tokenizer=None
+def set_model(model,tok):
+    global _model
+    global tokenizer
+    _model=model
+    tokenizer=tok
 # torch.backends.cuda.enable_mem_efficient_sdp(False)
 
 # tokenizer = GemmaTokenizer.from_pretrained("/kaggle/input/codegemma/transformers/7b-it/1")
@@ -23,6 +30,7 @@ from main import _model,tokenizer
 # )
 torch.backends.cuda.enable_mem_efficient_sdp(False)
 def generate_from_thinker(prompts, max_tokens, model="gpt-4-1106-preview", temperature=0.7, n=1):
+    print(_model)
     instructions = """You are a thinker. I need you to help me think about some problems.
         You need to provide me the answer based on the format of the example."""
     message=instructions

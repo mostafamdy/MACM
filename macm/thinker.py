@@ -22,6 +22,8 @@ def Analysis_conditions(question):
                                    model="gpt-4-1106-preview", 
                                    temperature=0.7,
                                    n=1)
+    print("answer")
+    print(answer)
     parts = answer.split("Objective:")
     conditions_text = parts[0].replace("Conditions:", "").strip()
     conditions = re.findall(r'\d\.\s*(.*)', conditions_text)

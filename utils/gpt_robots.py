@@ -29,7 +29,7 @@ def generate_from_thinker(prompts, max_tokens, model="gpt-4-1106-preview", tempe
     for i in range(len(prompts)): 
         message += prompts[i]["content"]
        
-    tokens = tokenizer(message, return_tensors='pt').to(model.device)
+    tokens = tokenizer(message, return_tensors='pt').to(_model.device)
    
     outputs = _model.generate(
         **tokens,
@@ -47,7 +47,7 @@ def generate_from_judge(prompts, max_tokens, model="gpt-4-1106-preview", tempera
     for i in range(len(prompts)): 
         message += prompts[i]["content"]
        
-    tokens = tokenizer(message, return_tensors='pt').to(model.device)
+    tokens = tokenizer(message, return_tensors='pt').to(_model.device)
     outputs = _model.generate(
         **tokens,
         max_new_tokens=max_tokens,
@@ -65,7 +65,7 @@ def generate_from_excutor(prompts, max_tokens, model="gpt-4-1106-preview", tempe
     message=instructions
     for i in range(len(prompts)): 
         message += prompts[i]["content"]
-    tokens = tokenizer(message, return_tensors='pt').to(model.device)
+    tokens = tokenizer(message, return_tensors='pt').to(_model.device)
     outputs = _model.generate(
         **tokens,
         max_new_tokens=max_tokens,

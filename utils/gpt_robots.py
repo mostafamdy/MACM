@@ -13,7 +13,7 @@ def set_model(model,tok):
     global tokenizer
     _model=model
     tokenizer=tok
-# torch.backends.cuda.enable_mem_efficient_sdp(False)
+    torch.backends.cuda.enable_mem_efficient_sdp(False)
 
 # tokenizer = GemmaTokenizer.from_pretrained("/kaggle/input/codegemma/transformers/7b-it/1")
 

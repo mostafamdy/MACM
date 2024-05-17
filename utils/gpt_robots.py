@@ -8,10 +8,10 @@ from transformers import BitsAndBytesConfig, AutoModelForCausalLM, GemmaTokenize
 
 # torch.backends.cuda.enable_mem_efficient_sdp(False)
 
-tokenizer = GemmaTokenizer.from_pretrained("/kaggle/input/codegemma/transformers/7b-it/1")
+tokenizer = GemmaTokenizer.from_pretrained("kaggle/input/codegemma/transformers/7b-it/1")
 
 _model = AutoModelForCausalLM.from_pretrained(
-    "/kaggle/input/codegemma/transformers/7b-it/1",
+    "kaggle/input/codegemma/transformers/7b-it/1",
     device_map="auto",
     torch_dtype="auto",
     quantization_config=BitsAndBytesConfig(

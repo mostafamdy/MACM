@@ -159,10 +159,33 @@ def evaluate_dataset(folder_path, times, n, limit=5):
                             
                                           
 if __name__ == "__main__":
-    n = 1 # verification times
-    times = 5 # The upper limit of the mining times
-    min_voters = 5 # min number of voters
-    max_voters = 7 # max number of voters
-    question = "" # Input your own question
-
-    main(question, times, n, min_voters, max_voters)  # Assuming these are defined elsewhere
+    parser = argparse.ArgumentParser(description="MACM parser we execpt n times min_voters max_voters question")
+    # Define required and optional arguments
+    parser.add_argument("-q","--question", type=str, help="Question")
+    parser.add_argument("-minv","--min_voters", type=int, help="min voters count")
+    parser.add_argument("-maxv","--max_voters", type=int, help="max voters count")
+    parser.add_argument("-t","--times", type=int, help="The upper limit of the mining times")
+    parser.add_argument("-n","--verification_times", type=int, help="verification times")
+    # Parse arguments from the command line
+    args = parser.parse_args()
+    n=args.verification_times
+    times=args.times
+    min_voters=args.min_voters
+    max_voters=args.max_voters
+    question=args.question
+    
+    tokenizer = GemmaTokenizer.from_pretrained("/kaggle/input/codegemma/transformers/7b-it/1")
+    
+    _model = AutoModelForCausalLM.from_pretrained(
+        "/kaggle/input/codegemma/transformers/7b-it/1",
+        device_map="auto",
+        torch_dtype="auto",
+        quantization_config=BitsAndBytesConfig(
+            load_in_4bit=True,  # Loading weights in 4-bit format
+            bnb_4bit_quant_type="nf4",  # Using non-linear quantization with 4 bits
+            bnb_4bit_compute_dtype=torch.bfloat16,  # Using bfloat16 for computation
+            bnb_4bit_use_double_quant=True  # Using double quantization
+        )
+    )
+    
+    main(question, times, n, min_voters, max_voters,_model,tokenizer)  # Assuming these are defined elsewhere

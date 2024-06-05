@@ -171,7 +171,7 @@ if __name__ == "__main__":
     parser.add_argument("-maxv","--max_voters", type=int, help="max voters count")
     parser.add_argument("-t","--times", type=int, help="The upper limit of the mining times")
     parser.add_argument("-n","--verification_times", type=int, help="verification times")
-    parser.add_argument("-m","--model_path", type=int, help="model path")
+    parser.add_argument("-m","--model_path", type=str, help="model path")
     # Parse arguments from the command line
     args = parser.parse_args()
     n=args.verification_times

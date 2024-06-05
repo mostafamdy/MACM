@@ -171,6 +171,7 @@ if __name__ == "__main__":
     parser.add_argument("-maxv","--max_voters", type=int, help="max voters count")
     parser.add_argument("-t","--times", type=int, help="The upper limit of the mining times")
     parser.add_argument("-n","--verification_times", type=int, help="verification times")
+    parser.add_argument("-m","--model_path", type=int, help="model path")
     # Parse arguments from the command line
     args = parser.parse_args()
     n=args.verification_times
@@ -178,11 +179,12 @@ if __name__ == "__main__":
     min_voters=args.min_voters
     max_voters=args.max_voters
     question=args.question
+    model_path=args.model_path
     
-    tokenizer = GemmaTokenizer.from_pretrained("/kaggle/input/codegemma/transformers/7b-it/1")
+    tokenizer = GemmaTokenizer.from_pretrained(model_path)
     
     _model = AutoModelForCausalLM.from_pretrained(
-        "/kaggle/input/codegemma/transformers/7b-it/1",
+        model_path,#"/kaggle/input/codegemma/transformers/7b-it/1",
         device_map="auto",
         torch_dtype="auto",
         quantization_config=BitsAndBytesConfig(

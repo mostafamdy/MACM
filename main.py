@@ -79,32 +79,43 @@ def main(question, times, n, min_voters, max_voters,model,tokenizer):
         while tie or voter_count < min_voters:
             voter_count += 1
             print(f"\n# {voter_count} Thinker is analyzing the question...")
-            print(f"Question:\n {question}")
+            print(f"Question:\n {question}\n")
             conditions,objectives = Analysis_conditions(question)
             Initial_condition_numbers = len(conditions) # This line will be used for the $while$ mode
+            print("\n")
             print(f"conditions:\n {conditions}")
             print(f"objectives:\n {objectives}")
             
             # Think thoughts
             # while len(conditions) - Initial_condition_numbers <= times: 
             for time in range(times): # Try to reduce the LLM queries.
+                print("*"*40)
                 print(f"\n# {voter_count} Thinker is thinking new thoughts...")
                 unchecked_conditions = Think_thoughts(conditions,objectives)
-                print(f"unchecked_conditions:\n {unchecked_conditions}")
+                if isinstance(unchecked_conditions, list):
+                    # unchecked_conditions="\n".join(unchecked_conditions)
+                    print(f"unchecked_conditions:\n {"\n".join(unchecked_conditions)}")
+                else:
+                    print(f"unchecked_conditions:\n {unchecked_conditions}")
+                
                 checked_conditions = []
                 for unchecked_condition in unchecked_conditions:
-                    print(f"\n# {voter_count} Judge is checking conditions...")
+                    print(f"\n# {voter_count} Judge is checking condition...")
+                    print(unchecked_condition)
                     if check_statement(conditions,unchecked_condition,n):
                         start = unchecked_condition.find("we can get: ")
                         if start != -1:
                             unchecked_condition = unchecked_condition[start + len("we can get: "):]
                             unchecked_condition = unchecked_condition.split("Reason:")[0]
                         checked_conditions.append(unchecked_condition)
+                        
                 conditions = conditions + checked_conditions
-                print(f"conditions:\n {conditions}")
+                print(f"checked conditions:\n {conditions}")
+                
                 if_got_answer = check_if_got_answer(conditions,objectives,1)
                 if if_got_answer:
                     break
+            
             print(f"\n# {voter_count} thinker is thinking steps...")
             steps = Think_Steps(conditions,objectives)
             print(f"steps:\n {steps}")

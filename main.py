@@ -9,6 +9,8 @@ from macm.judge import Judge_statement, Judge_answer, Judge_condition
 from macm.thinker import Analysis_conditions, Think_thoughts, Think_Steps
 from utils.gpt_robots import set_model
 import argparse
+import gc
+import torch
 from transformers import BitsAndBytesConfig, AutoModelForCausalLM, GemmaTokenizer
 
 def check_condition(question,condition, n):

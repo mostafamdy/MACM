@@ -11,7 +11,7 @@ from utils.gpt_robots import set_model
 import argparse
 import gc
 import torch
-from transformers import BitsAndBytesConfig, AutoModelForCausalLM, GemmaTokenizer
+from transformers import BitsAndBytesConfig, AutoModelForCausalLM, AutoTokenizer
 
 def check_condition(question,condition, n):
     """
@@ -181,7 +181,7 @@ if __name__ == "__main__":
     question=args.question
     model_path=args.model_path
     
-    tokenizer = GemmaTokenizer.from_pretrained(model_path)
+    tokenizer = AutoTokenizer.from_pretrained(model_path)
     
     _model = AutoModelForCausalLM.from_pretrained(
         model_path,#"/kaggle/input/codegemma/transformers/7b-it/1",

@@ -94,7 +94,7 @@ def main(question, times, n, min_voters, max_voters,model,tokenizer):
                 unchecked_conditions = Think_thoughts(conditions,objectives)
                 if isinstance(unchecked_conditions, list):
                     # unchecked_conditions="\n".join(unchecked_conditions)
-                    print(f"unchecked_conditions:\n {"\n".join(unchecked_conditions)}")
+                    print(f"unchecked_conditions:\n {'\n'.join(unchecked_conditions)}")
                 else:
                     print(f"unchecked_conditions:\n {unchecked_conditions}")
                 

@@ -151,10 +151,25 @@ def evaluate_dataset(folder_path, times, n, limit=5):
                             
                                           
 if __name__ == "__main__":
-    n = 1 # verification times
-    times = 5 # The upper limit of the mining times
-    min_voters = 5 # min number of voters
-    max_voters = 7 # max number of voters
-    question = "" # Input your own question
-
+    # n = 1 # verification times
+    # times = 5 # The upper limit of the mining times
+    # min_voters = 5 # min number of voters
+    # max_voters = 7 # max number of voters
+    # question = "" # Input your own question
+    # # Create an ArgumentParser object
+    # # Create an ArgumentParser object
+    parser = argparse.ArgumentParser(description="MACM parser we execpt n times min_voters max_voters question")
+    # Define required and optional arguments
+    parser.add_argument("-q","--question", type=str, help="Question")
+    parser.add_argument("-minv","--min_voters", type=int, help="min voters count")
+    parser.add_argument("-maxv","--max_voters", type=int, help="max voters count")
+    parser.add_argument("-t","--times", type=int, help="The upper limit of the mining times")
+    parser.add_argument("-n","--verification_times", type=int, help="verification times")
+    # Parse arguments from the command line
+    args = parser.parse_args()
+    n=args.verification_times
+    times=args.times
+    min_voters=args.min_voters
+    max_voters=args.max_voters
+    question=args.question
     main(question, times, n, min_voters, max_voters)  # Assuming these are defined elsewhere
